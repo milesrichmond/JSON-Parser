@@ -1,0 +1,9 @@
+{
+    "val_string" : "test",
+    "val_bool" : true,
+    "val_null" : null,
+    "val_number" : 14.85,
+    "val_array" : {
+        "int" : 10
+    }
+}
