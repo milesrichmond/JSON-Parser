@@ -18,19 +18,19 @@ fn file_to_str<'a>(filepath: &'a str) -> Result<String, String> {
 fn main() {
     let mut args = std::env::args();
     
-    if args.by_ref().count() > 2 {
-        println!("Too many arguments provided");
+    if args.len() > 2 || args.len() < 1 {
+        println!("Invalid argument count!, found: {} args when 2 expected", args.len());
         return;
     }
     
-    let json = file_to_str("test1.json");
+    let filename: String = args.nth(1).unwrap();
+    let json = file_to_str(filename.as_str());
     
     if let Err(error) = json {
-        println!("{}, your current working directory is {}", error, std::env::current_dir().unwrap().as_path().display());
+        println!("{filename}: {}, your current working directory is {}", error, std::env::current_dir().unwrap().as_path().display());
         return;
     }
     
-    //let head = JsonObj::try_from(json.unwrap().as_str());
     let head = create_json(json.as_ref().unwrap());
     
     if let Ok(head_object) = head {
